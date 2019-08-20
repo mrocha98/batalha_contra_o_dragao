@@ -35,10 +35,14 @@ void anulaPassagemDeTurno(){
 
 void printaDadosDoTurno(){
     char donoDoTurno[TAM_NOME];
-    if(ehTurnoDoGuerreiro())
+    if(ehTurnoDoGuerreiro()){
         strcpy(donoDoTurno, warrior.nome);
-    else if(ehTurnoDoDragao)
+        imprimeArteGuerreiro();
+    }
+    else if(ehTurnoDoDragao){
         strcpy(donoDoTurno, dragon.nome);
+        imprimeArteDragao();
+    }
     printf("TURNO: %d\tVEZ DE: %s\n", contadorTurno, donoDoTurno);
 }
 
@@ -89,6 +93,7 @@ void usaPocao(P *personagem){
 }
 
 void bolaDeFogo(P *alvo){
+    imprimeArteBolaDeFogo();
     printf("%s utilizou %s!\n", dragon.nome, dragon.skills[0].nome);
     int danoBaseReal = dragon.danoBase;
     dragon.danoBase += 40;
@@ -98,6 +103,7 @@ void bolaDeFogo(P *alvo){
 }
 
 void ataqueComACauda(P *alvo){
+    imprimeArteataqueComACauda();
     printf("%s utilizou %s!\n", dragon.nome, dragon.skills[1].nome);
     int danoBaseReal = dragon.danoBase;
     dragon.danoBase += 12;
@@ -107,6 +113,7 @@ void ataqueComACauda(P *alvo){
 }
 
 void espadaDemoniaca(){
+    imprimeArteEspadaDemoniaca();
     printf("%s utilizou %s!\n", warrior.nome, warrior.skills[0].nome);
     int danoBaseReal = warrior.danoBase;
     int danoCriticoBaseReal = warrior.danoCriticoBase;
@@ -119,6 +126,7 @@ void espadaDemoniaca(){
 }
 
 void ataqueDasMilLaminas(){
+    imprimeArteAtaqueDasMilLaminas();
     printf("%s utilizou %s!\n", warrior.nome, warrior.skills[1].nome);
     int danoBaseReal = warrior.danoBase;
     int danoCriticoBaseReal = warrior.danoCriticoBase;
@@ -131,6 +139,7 @@ void ataqueDasMilLaminas(){
 }
 
 void bencaoDosDeuses(){
+    imprimeArteBencaoDosDeuses();
     printf("%s utilizou %s!\n", warrior.nome, warrior.skills[2].nome);
     int sorteado = jogaDado(&warrior);
     if(tirou1(sorteado))
@@ -179,8 +188,10 @@ void turnoDoDragao(){
         bolaDeFogo(&warrior);
     else if(acao == 2 && manaSuficienteAtaqueComACauda)
         ataqueComACauda(&warrior);
-    else
+    else{
+        imprimeArteDragaoAtaque();
         ataque(&dragon, &warrior);
+    }
 }
 
 void txtMenu(){
@@ -197,8 +208,10 @@ void turnoDoGuerreiro(){
         printaDadosDoPersonagem(&dragon);
         listaSkills(&dragon);
         anulaPassagemDeTurno();
-    }else if(n == 2)
+    }else if(n == 2){
+        imprimeArteGuerreiroAtaque();
         ataque(&warrior, &dragon);
+    }
     else if(n == 3){
         if(warrior.qtdPocoes == 0){
             printf("%s nao possui pocoes!\n", warrior.nome);
@@ -255,9 +268,8 @@ void inicializaPersonagem(P *pers, int hp, int mana, int dB, int dCB, char nome[
 }
 
 int main(){
-    printf("\n\t\t====================================\n");
-    printf("\t\tBATALHA CONTRA O DRAGAO\n");
-    printf("\t\t====================================\n");
+    imprimeArteBanner();
+    printf("\n\n\n");
     imprimeArteInicial();
     srand(time(0));
         
@@ -290,10 +302,12 @@ int main(){
         getchar();
     }
     if(dragaoMorreu()){
-        printf("%s matou %s!\n", warrior.nome, dragon.nome);
+        imprimeArteDragaoDerrotado();
+        printf("\n%s matou %s!\n", warrior.nome, dragon.nome);
         printf("\nParabens! Voce venceu a batalha!\n\n");
     }else{
-        printf("%s matou %s!\n", dragon.nome, warrior.nome);
+        imprimeArteGuerreiroDerrotado();
+        printf("\n%s matou %s!\n", dragon.nome, warrior.nome);
         printf("\nVoce perdeu... Mais sorte na proxima!\n\n");
     }printf("\t\t==========\t\tFIM DE JOGO\t\t==========\t\t\n");
     system("pause");

@@ -1,1 +1,14 @@
+void imprimeArte(FILE *f);
 void imprimeArteInicial();
+void imprimeArteBanner();
+void imprimeArteDragao();
+void imprimeArteGuerreiro();
+void imprimeArteEspadaDemoniaca();
+void imprimeArteAtaqueDasMilLaminas();
+void imprimeArteBencaoDosDeuses();
+void imprimeArteBolaDeFogo();
+void imprimeArteataqueComACauda();
+void imprimeArteGuerreiroDerrotado();
+void imprimeArteDragaoDerrotado();
+void imprimeArteGuerreiroAtaque();
+void imprimeArteDragaoAtaque();
