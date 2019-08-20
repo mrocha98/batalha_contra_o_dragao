@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "ascii.h"
 #define TAM_NOME 30+1
 
 typedef struct skill {
@@ -146,12 +147,12 @@ void bencaoDosDeuses(){
     warrior.mana = warrior.mana - warrior.skills[2].consumoMana;
 }
 
-int acabou(){
-    return (dragon.hp <= 0 || warrior.hp <= 0);
-}
-
 int dragaoMorreu(){
     return dragon.hp <= 0;
+}
+
+int acabou(){
+    return (dragaoMorreu()|| warrior.hp <= 0);
 }
 
 void printaDadosDaSkill(P *personagem, int i){
@@ -255,8 +256,9 @@ void inicializaPersonagem(P *pers, int hp, int mana, int dB, int dCB, char nome[
 
 int main(){
     printf("\n\t\t====================================\n");
-    printf("\t\tJOGUIN DO DRAGAO\tVersao Alpha\tBy: Rxa e Leleco\n");
+    printf("\t\tBATALHA CONTRA O DRAGAO\n");
     printf("\t\t====================================\n");
+    imprimeArteInicial();
     srand(time(0));
         
     inicializaPersonagem(&dragon, 4000, 1500, 60, 100, "Dragao", 10, 0);
